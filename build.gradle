@@ -1,0 +1,19 @@
+apply from: "$rootDir/gradle/idea.gradle"
+
+group 'com.test.portal'
+version '1.0-SNAPSHOT'
+
+subprojects {
+  apply from: "$rootDir/gradle/versions.gradle"
+  apply from: "$rootDir/gradle/java.gradle"
+//  apply from: "$rootDir/gradle/codeQuality.gradle"
+//  apply from: "$rootDir/gradle/spring.gradle"
+//  apply from: "$rootDir/gradle/mongodb.gradle"
+
+  repositories {
+    mavenCentral()
+    mavenLocal()
+    jcenter()
+  }
+}
+
