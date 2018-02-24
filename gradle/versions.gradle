@@ -1,0 +1,19 @@
+ext {
+  // test
+  junitVersion = "4.12"
+
+  // server library
+  lombokVersion = "1.16.20"
+  wsrsapiVersion = "2.1"
+  log4jVersion = "2.10.0"
+//
+//  gwtVersion = "2.8.2"
+//  gwtMaterialVersion = "2.0.1"
+//  gwtMaterialAddinsVersion = "2.0.1"
+//  gwtMaterialThemesVersion = "2.0.1"
+//  gwtMaterialTableVersion = "2.0.1"
+//  dominoVersion = "1.0-rc.2"
+//  autoServiceVersion = "1.0-rc4"
+//  restyGwtVersion = "2.2.3"
+//  elemental2Version = "1.0.0-RC1"
+}
