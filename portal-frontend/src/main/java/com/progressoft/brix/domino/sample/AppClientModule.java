@@ -2,7 +2,6 @@ package com.progressoft.brix.domino.sample;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.progressoft.brix.domino.api.client.ClientApp;
-
 import java.util.logging.Logger;
 
 public class AppClientModule implements EntryPoint {
