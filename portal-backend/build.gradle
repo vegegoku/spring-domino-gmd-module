@@ -1,0 +1,87 @@
+plugins {
+  id "org.springframework.boot" version "1.5.10.RELEASE"
+  id "net.ltgt.apt" version "0.14"
+}
+
+dependencies {
+  // logger
+  compile("org.apache.logging.log4j:log4j-core:$log4jVersion")
+  compile("org.apache.logging.log4j:log4j-api:$log4jVersion")
+
+  // spring
+  compileOnly("org.springframework.boot:spring-boot-configuration-processor")
+  compile("org.springframework.boot:spring-boot-starter-jetty")
+  compile("org.springframework.boot:spring-boot-starter-web") {
+    exclude module: "spring-boot-starter-tomcat"
+  }
+  compile("javax.ws.rs:javax.ws.rs-api:$wsrsapiVersion")
+
+  compileOnly("org.projectlombok:lombok:$lombokVersion")
+  annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+
+  // common testing
+  testCompile("junit:junit:$junitVersion")
+  testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+//clean.doFirst {
+//  delete "${rootDir}/build"
+//  delete "${rootDir}/war"
+//  delete "${rootDir}/out"
+//}
+
+//compileGwt {
+//  classpath {
+//    [
+//        sourceSets.main.java.srcDirs,           // Java source
+//        sourceSets.main.output.resourcesDir,    // Generated resources
+//        sourceSets.main.output.classesDir,      // Generated classes
+//        sourceSets.main.compileClasspath,       // Deps
+//    ]
+//  }
+//}
+
+//task wrapper(type: Wrapper) {
+//  gradleVersion = "4.5.1"
+//}
+
+//task fastRun {
+//  gradle.startParameter.excludedTaskNames += "checkstyleMain"
+//  gradle.startParameter.excludedTaskNames += "checkstyleTest"
+//  gradle.startParameter.excludedTaskNames += "checkstyleGenerated"
+//  gradle.startParameter.excludedTaskNames += "findbugsMain"
+//  gradle.startParameter.excludedTaskNames += "findbugsTest"
+//  gradle.startParameter.excludedTaskNames += "test"
+//}
+
+// deletes generated classes before new compilation
+//task deleteGenerated(type: Delete) {
+//  delete project.fileTree('src/generated/')
+//}
+
+//compileGeneratedJava {
+//  dependsOn('deleteGenerated')
+//}
+
+//compileJava {
+//  sourceCompatibility = "1.8"
+//  targetCompatibility = "1.8"
+//  options.encoding = 'UTF-8'
+//  options.compilerArgs = ['-Xlint:unchecked'] // Just a smoke test that using this option does not lead to any
+//  options.annotationProcessorGeneratedSourcesDirectory = new File("${projectDir.absolutePath}/src/generated/java")
+//  dependsOn(processResources, compileGeneratedJava)
+//  source += sourceSets.generated.java
+//  source += sourceSets.generated.output
+//}
+
+//test {
+//  systemProperties = System.properties
+//}
+
+//jar.dependsOn compileGwt
+
+//jar {
+//  into("static") {
+//    from compileGwt.buildDir
+//  }
+//}
