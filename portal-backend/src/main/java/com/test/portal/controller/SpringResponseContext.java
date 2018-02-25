@@ -7,26 +7,26 @@ import java.util.Map;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class SpringResponseContext implements ResponseContext<ResponseBean> {
+public class SpringResponseContext<S extends ResponseBean> implements ResponseContext<S> {
 
   private Map<String, String> headers = new HashMap<>();
   private int statusCode;
-  private ResponseBean responseBean;
+  private S responseBean;
 
   @Override
-  public ResponseContext<ResponseBean> putHeader(String name, String value) {
+  public ResponseContext<S> putHeader(String name, String value) {
     headers.put(name, value);
     return this;
   }
 
   @Override
-  public ResponseContext<ResponseBean> putHeader(String name, Iterable<String> values) {
+  public ResponseContext<S> putHeader(String name, Iterable<String> values) {
     values.forEach(value -> putHeader(name, value));
     return this;
   }
 
   @Override
-  public ResponseContext<ResponseBean> statusCode(int statusCode) {
+  public ResponseContext<S> statusCode(int statusCode) {
     this.statusCode = statusCode;
     return this;
   }
@@ -36,7 +36,7 @@ public class SpringResponseContext implements ResponseContext<ResponseBean> {
   }
 
   @Override
-  public void end(ResponseBean body) {
+  public void end(S body) {
     this.responseBean = body;
   }
 
@@ -52,7 +52,7 @@ public class SpringResponseContext implements ResponseContext<ResponseBean> {
     return statusCode;
   }
 
-  public ResponseBean getResponseBean() {
+  public S getResponseBean() {
     return responseBean;
   }
 }
