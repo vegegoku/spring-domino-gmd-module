@@ -1,0 +1,22 @@
+apply from: "$rootDir/gradle/gwt.gradle"
+
+dependencies {
+  // GWT framework
+  compileOnly("com.google.gwt:gwt-user:$gwtVersion")
+  compileOnly("com.google.gwt:gwt-dev:$gwtVersion")
+
+  // domino ???
+  compileOnly("com.progressoft.brix.domino.api:domino-api-client:$dominoVersion")
+  compileOnly("com.progressoft.brix.domino.logging:domino-gwt-logger:$dominoVersion")
+}
+
+compileGwt {
+  classpath {
+    [
+        sourceSets.main.java.srcDirs,           // Java source
+        sourceSets.main.output.resourcesDir,    // Generated resources
+        sourceSets.main.output.classesDir,      // Generated classes
+        sourceSets.main.compileClasspath,       // Deps
+    ]
+  }
+}

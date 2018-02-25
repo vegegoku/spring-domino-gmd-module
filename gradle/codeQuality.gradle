@@ -3,8 +3,8 @@ def checkstyleConfigDir = "$configDir/checkstyle"
 
 apply plugin: 'checkstyle'
 apply plugin: 'findbugs'
-//apply plugin: 'pmd'
-apply plugin: "jacoco"
+apply plugin: 'pmd'
+//apply plugin: "jacoco"
 
 checkstyle {
   ignoreFailures = false
@@ -37,13 +37,34 @@ tasks.withType(FindBugs) {
   }
 }
 
-jacocoTestReport {
+pmd {
+  ignoreFailures = true
+  toolVersion = "6.0.1"
+  sourceSets = [sourceSets.main, sourceSets.test]
+  reportsDir = file("$project.buildDir/pmdReports")
+  ruleSetFiles = files("$configDir/pmd-ruleset.xml")
+}
+
+tasks.withType(Pmd) {
   reports {
-    xml.enabled false
-    csv.enabled false
-    html.destination "${buildDir}/jacocoHtml"
+    xml.enabled = false
+    html.enabled = true
   }
 }
+
+//jacoco {
+//  toolVersion = "0.8.0"
+//  reportsDir = file("$buildDir/jacocoReports")
+//}
+
+//jacocoTestReport {
+//  reports {
+//    xml.enabled false
+//    csv.enabled false
+//    html.enabled false
+//    html.destination file("${buildDir}/jacocoHtml")
+//  }
+//}
 
 task checkstyleHtml {
   doLast {
@@ -63,17 +84,3 @@ task checkstyleHtml {
 
 checkstyleMain.finalizedBy checkstyleHtml
 checkstyleTest.finalizedBy checkstyleHtml
-
-//pmd {
-//  ignoreFailures = true
-//  sourceSets = [sourceSets.main]
-//  reportsDir = file("$project.buildDir/pmdReports")
-//  ruleSets = ["basic", "braces", "strings"]
-//}
-//
-//tasks.withType(Pmd) {
-//  reports {
-//    xml.enabled = false
-//    html.enabled = true
-//  }
-//}

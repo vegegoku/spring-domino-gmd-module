@@ -1,12 +1,20 @@
+plugins {
+  id "net.ltgt.apt" version "0.14"
+}
+
 apply from: "$rootDir/gradle/idea.gradle"
 
 group 'com.test.portal'
 version '1.0-SNAPSHOT'
 
+allprojects {
+  apply plugin: 'net.ltgt.apt'
+}
+
 subprojects {
   apply from: "$rootDir/gradle/versions.gradle"
   apply from: "$rootDir/gradle/java.gradle"
-//  apply from: "$rootDir/gradle/codeQuality.gradle"
+  apply from: "$rootDir/gradle/codeQuality.gradle"
 //  apply from: "$rootDir/gradle/spring.gradle"
 //  apply from: "$rootDir/gradle/mongodb.gradle"
 
@@ -15,5 +23,29 @@ subprojects {
     mavenLocal()
     jcenter()
   }
+
+  clean.doFirst {
+    println "$projectDir"
+//    delete "${rootDir}/build"
+//    delete "${rootDir}/war"
+//    delete "${rootDir}/out"
+  }
+
+  build.doFirst {
+    println "Build - $build.project.name"
+  }
 }
 
+task wrapper(type: Wrapper) {
+  gradleVersion = "4.5.1"
+}
+
+task fastRun {
+  gradle.startParameter.excludedTaskNames += "checkstyleMain"
+  gradle.startParameter.excludedTaskNames += "checkstyleTest"
+  gradle.startParameter.excludedTaskNames += "findbugsMain"
+  gradle.startParameter.excludedTaskNames += "findbugsTest"
+  gradle.startParameter.excludedTaskNames += "pmdMain"
+  gradle.startParameter.excludedTaskNames += "pmdTest"
+  gradle.startParameter.excludedTaskNames += "test"
+}

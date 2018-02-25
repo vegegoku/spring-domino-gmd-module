@@ -20,6 +20,12 @@ public class SpringResponseContext implements ResponseContext<ResponseBean> {
   }
 
   @Override
+  public ResponseContext<ResponseBean> putHeader(String name, Iterable<String> values) {
+    values.forEach(value -> putHeader(name, value));
+    return this;
+  }
+
+  @Override
   public ResponseContext<ResponseBean> statusCode(int statusCode) {
     this.statusCode = statusCode;
     return this;
@@ -36,12 +42,6 @@ public class SpringResponseContext implements ResponseContext<ResponseBean> {
 
   @Override
   public void end(String body) {
-  }
-
-  @Override
-  public ResponseContext<ResponseBean> putHeader(String name, Iterable<String> values) {
-    values.forEach(value -> putHeader(name, value));
-    return this;
   }
 
   public Map<String, String> getHeaders() {

@@ -24,7 +24,7 @@ task compileGwt(dependsOn: classes, type: JavaExec) {
   if (project.hasProperty('dev')) {
     println "Run developer mode"
     args = [
-        "com.test.portal.Portal",
+        "com.test.portal.AppClientModule",
         "-war", buildDir,
         "-logLevel", "INFO",
         "-localWorkers", "4",
@@ -36,7 +36,7 @@ task compileGwt(dependsOn: classes, type: JavaExec) {
   } else {
     println "Run production mode"
     args = [
-        "com.test.portal.Portal",
+        "com.test.portal.AppClientModule",
         "-war", buildDir,
         "-logLevel", "INFO",
         "-localWorkers", "4",

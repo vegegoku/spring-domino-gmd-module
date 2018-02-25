@@ -1,11 +1,37 @@
+def generatedDir = new File("$projectDir", "src/generated")
+
 apply plugin: 'java'
 
 sourceSets {
   generated {
-    java.srcDir "src/generated/"
+    java.srcDir "src/generated/java"
   }
   main.java.srcDirs = ['src/main/java', "src/generated/java"]
   main.resources.srcDir "src/main/resources"
   test.java.srcDir "src/test/java"
   test.resources.srcDir "src/test/resources"
+}
+
+// deletes generated classes before new compilation
+task deleteGenerated(type: Delete) {
+  generatedDir.deleteDir()
+}
+
+compileGeneratedJava {
+  dependsOn('deleteGenerated')
+}
+
+compileJava {
+  sourceCompatibility = "1.8"
+  targetCompatibility = "1.8"
+  options.encoding = 'UTF-8'
+  options.compilerArgs = ['-Xlint:unchecked'] // Just a smoke test that using this option does not lead to any
+  options.annotationProcessorGeneratedSourcesDirectory = new File("$generatedDir", "java")
+  dependsOn(processResources, compileGeneratedJava)
+  source += sourceSets.generated.java
+  source += sourceSets.generated.output
+}
+
+test {
+  systemProperties = System.properties
 }

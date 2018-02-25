@@ -28,18 +28,17 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 public class TodoListController {
 
-  private RequestContext requestContext;
   private SpringResponseContext responseContext;
 
   private <R extends RequestBean, S extends ResponseBean> ExecutionContext<R, S> createExecutionContext(R request,
-      String requestURI) {
-    requestContext = DefaultRequestContext.forRequest(request)
-        .requestPath(requestURI)
+      String requestUri) {
+    RequestContext requestContext = DefaultRequestContext.forRequest(request)
+        .requestPath(requestUri)
         .headers(new DefaultMultiMap<>())
         .parameters(new DefaultMultiMap<>())
         .build();
     responseContext = new SpringResponseContext();
-    return new DefaultExecutionContext<>(requestContext, responseContext);
+    return new DefaultExecutionContext(requestContext, responseContext);
   }
 
   @RequestMapping(value = "items", method = RequestMethod.GET)

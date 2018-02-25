@@ -116,7 +116,7 @@
                 <artifactId>gwt-maven-plugin</artifactId>
                 <configuration>
                     <extra>${extra.directory}/gwt/extra</extra>
-                    <moduleName>com.progressoft.brix.domino.sample.AppClientModule</moduleName>
+                    <moduleName>com.test.portal.AppClientModule</moduleName>
                     <moduleShortName>app</moduleShortName>
                 </configuration>
             </plugin>
